@@ -1181,7 +1181,7 @@ if (typeof Object.create !== 'function') {
 
 		preloader: true,
 		preloaderFadeOutDuration: 250,
-		preloaderElements: 'img,video,iframe,object'
+		preloaderElements: 'img,video,iframe,object',
 
 		//swipe: true,
 		//swipeThreshold: 100
