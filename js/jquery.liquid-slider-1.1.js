@@ -606,6 +606,25 @@ if (typeof Object.create !== 'function') {
 			}
 		},
 
+        registerCustomArrows: function() {
+            var self = this;
+            if (self.options.customArrows) {
+                var selector = "." + self.options.customArrowLeft + ", ." + self.options.customArrowRight;
+                var left = $('.' + self.options.customArrowLeft).addClass("liquid-nav-left-arrow");
+                var right = $('.' + self.options.customArrowRight).addClass("liquid-nav-right-arrow");
+
+                $(selector).on('click', function () {
+                    // These prevent clicking when in continuous mode, which would break it otherwise.
+                    if (!self.clickable) { return false; }
+                    if (typeof self.options.callforwardFunction === 'function') { self.animationCallForward(true); }
+                    self.setCurrent($(this).attr('class').split('-')[2]);
+                    if (typeof self.options.callbackFunction === 'function') { self.animationCallback(true); }
+                    return false;
+                });
+                self.checkAutoSlideStop();
+            }
+        },
+
 		registerArrows: function () {
 			var self = this;
 			// CLick arrows
@@ -677,6 +696,7 @@ if (typeof Object.create !== 'function') {
 			var self = this;
 
 			if (self.options.dynamicArrows) { self.registerArrows(); }
+            if (self.options.customArrows) { self.registerCustomArrows(); }
 			if (self.options.crossLinks) { self.registerCrossLinks(); }
 
 			// Click tabs
@@ -1165,6 +1185,9 @@ if (typeof Object.create !== 'function') {
 
 		//swipe: true,
 		//swipeThreshold: 100
+        customArrows: false,
+        customArrowLeft: '',
+        customArrowRight: ''
 	};
 
 })(jQuery, window, document);
