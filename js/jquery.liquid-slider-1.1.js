@@ -610,14 +610,14 @@ if (typeof Object.create !== 'function') {
             var self = this;
             if (self.options.customArrows) {
                 var selector = "." + self.options.customArrowLeft + ", ." + self.options.customArrowRight;
-                var left = $('.' + self.options.customArrowLeft).addClass("liquid-nav-left-arrow");
-                var right = $('.' + self.options.customArrowRight).addClass("liquid-nav-right-arrow");
+                var left = $('.' + self.options.customArrowLeft).data("nav-direction", "left");
+                var right = $('.' + self.options.customArrowRight).data("nav-direction", "right");
 
                 $(selector).on('click', function () {
                     // These prevent clicking when in continuous mode, which would break it otherwise.
                     if (!self.clickable) { return false; }
                     if (typeof self.options.callforwardFunction === 'function') { self.animationCallForward(true); }
-                    self.setCurrent($(this).attr('class').split('-')[2]);
+                    self.setCurrent($(this).data("nav-direction"));
                     if (typeof self.options.callbackFunction === 'function') { self.animationCallback(true); }
                     return false;
                 });
